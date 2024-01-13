@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from .models import Project
+from .models import Festival
 
-class ProjectSerializer(serializers.ModelSerializer):
+class FestivalSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Project
+        model = Festival
         fields = "__all__"
