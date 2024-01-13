@@ -1,19 +1,19 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import Project
-from .serializers import ProjectSerializer
+from .models import Festival
+from .serializers import FestivalSerializer
 from django.http import Http404
 from rest_framework import status
 
-class ProjectList(APIView):
+class FestivalList(APIView):
     def get(self, request):
-        projects = Project.objects.all()
-        serializer = ProjectSerializer(projects, many=True)
+        festivals = Festival.objects.all()
+        serializer = FestivalSerializer(festivals, many=True)
         return Response(serializer.data)
 
 
     def post(self, request):
-            serializer = ProjectSerializer(data=request.data)
+            serializer = FestivalSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()
                 return Response(
@@ -25,13 +25,13 @@ class ProjectList(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-class ProjectDetail(APIView):
+class FestivalDetail(APIView):
     def get_object(self, pk):
         try:
-            return Project.objects.get(pk=pk)
-        except Project.DoesNotExist:
+            return Festival.objects.get(pk=pk)
+        except Festival.DoesNotExist:
                 raise Http404
     def get(self, request, pk):
-        project = self.get_object(pk)
-        serializer = ProjectSerializer(project)
+        festival = self.get_object(pk)
+        serializer = FestivalSerializer(festival)
         return Response(serializer.data)
