@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Festival, Ticket, Pledge
-from .serializers import FestivalSerializer, TicketSerializer, PledgeSerializer
+from .serializers import FestivalSerializer, FestivalDetailSerializer, TicketSerializer, PledgeSerializer
 from django.http import Http404
 from rest_framework import status
 
@@ -32,7 +32,7 @@ class FestivalDetail(APIView):
                 raise Http404
     def get(self, request, pk):
         festival = self.get_object(pk)
-        serializer = FestivalSerializer(festival)
+        serializer = FestivalDetailSerializer(festival)
         return Response(serializer.data)
 
 class TicketList(APIView):
