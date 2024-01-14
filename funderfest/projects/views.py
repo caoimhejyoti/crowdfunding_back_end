@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import Festival, Ticket
-from .serializers import FestivalSerializer, TicketSerializer
+from .models import Festival, Ticket, Pledge
+from .serializers import FestivalSerializer, TicketSerializer, PledgeSerializer
 from django.http import Http404
 from rest_framework import status
 
@@ -10,7 +10,6 @@ class FestivalList(APIView):
         festivals = Festival.objects.all()
         serializer = FestivalSerializer(festivals, many=True)
         return Response(serializer.data)
-
 
     def post(self, request):
             serializer = FestivalSerializer(data=request.data)
@@ -24,6 +23,7 @@ class FestivalList(APIView):
                 serializer.errors,
                 status=status.HTTP_400_BAD_REQUEST
             )
+    
 class FestivalDetail(APIView):
     def get_object(self, pk):
         try:
@@ -43,6 +43,25 @@ class TicketList(APIView):
     
     def post(self, request):
         serializer = TicketSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                serializer.data,
+                status=status.HTTP_201_CREATED
+            )
+        return Response(
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+class PledgeList(APIView):
+    def get(self, request):
+        Pledges = Pledge.objects.all()
+        serializer = PledgeSerializer(Pledges, many=True)
+        return Response(serializer.data)
+    
+    def post(self, request):
+        serializer = PledgeSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(
