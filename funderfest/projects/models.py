@@ -26,4 +26,17 @@ class Ticket(models.Model):
         related_name='tickets'
     )
 
-
+class Pledge(models.Model):
+    comment = models.CharField(max_length=200)
+    anonymous = models.BooleanField()
+    ticket_option = models.ForeignKey(
+        'Ticket',
+        on_delete=models.CASCADE,
+        related_name="pledges"
+    )
+    festival = models.ForeignKey(
+        'Festival',
+        on_delete=models.CASCADE,
+        related_name='pledges'
+    )
+    supporter = models.CharField(max_length=200)

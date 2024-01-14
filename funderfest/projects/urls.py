@@ -6,4 +6,5 @@ urlpatterns = [
     path('festivals/<int:pk>/', views.FestivalDetail.as_view()),
     # path('festivals/<int:pk>/tickets/', views.TicketList.as_view()),
     path('tickets/', views.TicketList.as_view()),
+    path('pledges/', views.PledgeList.as_view()),
     ]
