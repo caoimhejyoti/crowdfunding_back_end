@@ -1,4 +1,4 @@
-![Funderfest Events logo](assets/funderfest_events_banner_dark.png)
+![Funderfest Events logo](assets/funderfest_events_banner_dark_2.png)
 # FunderFest Events Back End
 Back end repo for She Codes crowdfunding project. 
 
