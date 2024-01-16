@@ -7,7 +7,7 @@ from rest_framework import status, permissions
 
 class FestivalList(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    
+
     def get(self, request):
         festivals = Festival.objects.all()
         serializer = FestivalSerializer(festivals, many=True)
@@ -32,12 +32,25 @@ class FestivalDetail(APIView):
             return Festival.objects.get(pk=pk)
         except Festival.DoesNotExist:
                 raise Http404
+
     def get(self, request, pk):
         festival = self.get_object(pk)
         serializer = FestivalDetailSerializer(festival)
         return Response(serializer.data)
 
+    def put(self, request, pk):
+        festival = self.get_object(pk)
+        serializer = FestivalDetailSerializer(
+            instance=festival,
+            data=request.data,
+            partial=True
+        )
+        if serializer.is_valid():
+            serializer.save()
+
+
 class TicketList(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     def get(self, request):
         tickets = Ticket.objects.all()
         serializer = TicketSerializer(tickets, many=True)
@@ -57,6 +70,7 @@ class TicketList(APIView):
         )
 
 class PledgeList(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     def get(self, request):
         Pledges = Pledge.objects.all()
         serializer = PledgeSerializer(Pledges, many=True)
