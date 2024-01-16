@@ -18,6 +18,7 @@ class Festival(models.Model):
 
 
 class Ticket(models.Model):
+    ticket_name = models.CharField(max_length=200)
     cost=models.IntegerField()
     features=models.TextField()
     festival = models.ForeignKey(
