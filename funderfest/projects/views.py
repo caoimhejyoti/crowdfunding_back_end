@@ -4,6 +4,7 @@ from .models import Festival, Ticket, Pledge
 from .serializers import FestivalSerializer, FestivalDetailSerializer, TicketSerializer, PledgeSerializer
 from django.http import Http404
 from rest_framework import status, permissions
+from .permissions import IsOwnerOrReadOnly
 
 class FestivalList(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -27,11 +28,14 @@ class FestivalList(APIView):
         )
 
 class FestivalDetail(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     def get_object(self, pk):
         try:
-            return Festival.objects.get(pk=pk)
+            festival = Festival.objects.get(pk=pk)
+            self.check_object_permissions(self.request, festival)
+            return festival
         except Festival.DoesNotExist:
-                raise Http404
+            raise Http404
 
     def get(self, request, pk):
         festival = self.get_object(pk)
