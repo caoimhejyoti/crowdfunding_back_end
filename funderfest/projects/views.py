@@ -3,27 +3,29 @@ from rest_framework.response import Response
 from .models import Festival, Ticket, Pledge
 from .serializers import FestivalSerializer, FestivalDetailSerializer, TicketSerializer, PledgeSerializer
 from django.http import Http404
-from rest_framework import status
+from rest_framework import status, permissions
 
 class FestivalList(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    
     def get(self, request):
         festivals = Festival.objects.all()
         serializer = FestivalSerializer(festivals, many=True)
         return Response(serializer.data)
 
     def post(self, request):
-            serializer = FestivalSerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save(owner=request.user)
-                return Response(
-                    serializer.data,
-                    status=status.HTTP_201_CREATED
-                )
+        serializer = FestivalSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(owner=request.user)
             return Response(
-                serializer.errors,
-                status=status.HTTP_400_BAD_REQUEST
+                serializer.data,
+                status=status.HTTP_201_CREATED
             )
-    
+        return Response(
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
 class FestivalDetail(APIView):
     def get_object(self, pk):
         try:
