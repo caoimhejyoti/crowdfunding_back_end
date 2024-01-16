@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth import get_user_model
+
 
 # Create your models here.
 
@@ -9,12 +11,13 @@ class Festival(models.Model):
     image = models.URLField()
     is_open = models.BooleanField()
     date_created = models.DateTimeField()
-    owner = models.CharField(max_length=200)
-    # TODO: add the below to the model. Needed to allow users to pledge an additional amount beyond 
-    # tickets = models.BooleanField() 
-    # TODO: add the below to the model if possible. 
-    # start_date = models.DateTimeField()
-    # end_date = models.DateTimeField()
+    owner = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name='owned_festivals')
+    tickets_available = models.BooleanField() 
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
 
 
 class Ticket(models.Model):
@@ -40,4 +43,8 @@ class Pledge(models.Model):
         on_delete=models.CASCADE,
         related_name='pledges'
     )
-    supporter = models.CharField(max_length=200)
+    supporter = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name='pledges'
+    )
