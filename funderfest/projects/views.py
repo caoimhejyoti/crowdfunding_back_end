@@ -51,7 +51,11 @@ class FestivalDetail(APIView):
         )
         if serializer.is_valid():
             serializer.save()
-
+            return Response(serializer.data)
+        return Response(
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST
+        )
 
 class TicketList(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -63,7 +67,7 @@ class TicketList(APIView):
     def post(self, request):
         serializer = TicketSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(owner=request.user)
             return Response(
                 serializer.data,
                 status=status.HTTP_201_CREATED
