@@ -129,6 +129,8 @@ env.bak/
 venv.bak/
 funderfest_venv
 
+staticfiles
+
 # Spyder project settings
 .spyderproject
 .spyproject
