@@ -4,8 +4,9 @@ from .models import Festival, Ticket, Pledge
 from .serializers import FestivalSerializer, FestivalDetailSerializer, TicketSerializer, PledgeSerializer, TicketDetailSerializer, PledgeDetailSerializer
 from django.http import Http404
 from rest_framework import status, permissions
-from .permissions import IsOwnerOrReadOnly
+from .permissions import IsOwnerOrReadOnly, isSupporterOrReadOnly
 
+# --------- Festival Views --------- 
 class FestivalList(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
@@ -57,6 +58,8 @@ class FestivalDetail(APIView):
             status=status.HTTP_400_BAD_REQUEST
         )
 
+
+# --------- Ticket Views --------- 
 class TicketList(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     def get(self, request):
@@ -107,6 +110,9 @@ class TicketDetial(APIView):
             status=status.HTTP_400_BAD_REQUEST
         )
 
+
+# --------- Pledge Views --------- 
+
 class PledgeList(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     def get(self, request):
@@ -126,10 +132,9 @@ class PledgeList(APIView):
             serializer.errors,
             status=status.HTTP_400_BAD_REQUEST
         )
-    
 
 class PledgeDetial(APIView):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, isSupporterOrReadOnly]
     def get_object(self, pk):
         try:
             pledge = Pledge.objects.get(pk=pk)
