@@ -81,7 +81,7 @@ class TicketList(APIView):
         )
 
 class TicketDetial(APIView):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     def get_object(self, pk):
         try:
             ticket = Ticket.objects.get(pk=pk)
