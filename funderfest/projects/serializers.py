@@ -4,7 +4,14 @@ from .models import Festival, Ticket, Pledge
 
 class PledgeSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.id')
-
+    def update(self, instance, validated_data):
+        instance.comment = validated_data.get('comment', instance.comment)
+        instance.anonymous = validated_data.get('anonymous',instance.anonymous)
+        instance.ticket_option = validated_data.get('ticket_option', instance.ticket_option)
+        instance.festival = validated_data.get('festival', instance.festival)
+        instance.supporter = validated_data.get('supporter', instance.supporter)
+        instance.save()
+        return instance
     class Meta:
         model = Pledge
         fields = "__all__"
