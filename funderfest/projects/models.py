@@ -29,6 +29,10 @@ class Ticket(models.Model):
         on_delete=models.CASCADE,
         related_name='tickets'
     )
+    ticket_owner = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name='owned_tickets')
 
 class Pledge(models.Model):
     comment = models.CharField(max_length=200)
