@@ -4,7 +4,7 @@ from .models import Festival, Ticket, Pledge
 from .serializers import FestivalSerializer, FestivalDetailSerializer, TicketSerializer, PledgeSerializer, TicketDetailSerializer, PledgeDetailSerializer
 from django.http import Http404
 from rest_framework import status, permissions
-from .permissions import IsOwnerOrReadOnly, isSupporterOrReadOnly
+from .permissions import IsOwnerOrReadOnly, isSupporterOrReadOnly, IsTicketOwnerOrReadOnly
 
 # --------- Festival Views --------- 
 class FestivalList(APIView):
@@ -81,7 +81,7 @@ class TicketList(APIView):
         )
 
 class TicketDetial(APIView):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsTicketOwnerOrReadOnly]
     def get_object(self, pk):
         try:
             ticket = Ticket.objects.get(pk=pk)

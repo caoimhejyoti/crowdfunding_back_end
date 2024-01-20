@@ -30,6 +30,7 @@ class TicketDetailSerializer(serializers.ModelSerializer):
         instance.cost = validated_data.get('cost',instance.cost)
         instance.features = validated_data.get('features', instance.features)
         instance.festival = validated_data.get('festival', instance.festival)
+        instance.ticket_owner = validated_data.get('ticket_owner', instance.ticket_owner)
         instance.save()
         return instance
     
