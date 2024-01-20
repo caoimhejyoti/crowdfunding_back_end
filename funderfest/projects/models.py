@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 # Create your models here.
 
 class Festival(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, unique=True)
     description = models.TextField()
     goal = models.IntegerField()
     image = models.URLField()
