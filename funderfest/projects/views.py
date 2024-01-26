@@ -70,7 +70,7 @@ class TicketList(APIView):
     def post(self, request):
         serializer = TicketSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(owner=request.user)
+            serializer.save(ticket_owner=request.user)
             return Response(
                 serializer.data,
                 status=status.HTTP_201_CREATED
