@@ -21,22 +21,6 @@ class TicketSerializer(serializers.ModelSerializer):
         model = Ticket
         fields = "__all__"
 
-class TicketDetailSerializer(serializers.ModelSerializer):
-    # festivals = FestivalSerializer(many=True, read_only=True)
-    pledges = PledgeSerializer(many=True, read_only=True)
-    
-    def update(self, instance, validated_data):
-        instance.ticket_name = validated_data.get('ticket_name', instance.ticket_name)
-        instance.cost = validated_data.get('cost',instance.cost)
-        instance.features = validated_data.get('features', instance.features)
-        instance.festival = validated_data.get('festival', instance.festival)
-        instance.ticket_owner = validated_data.get('ticket_owner', instance.ticket_owner)
-        instance.save()
-        return instance
-    
-    class Meta:
-        model = Ticket
-        fields = "__all__"
 
 class FestivalSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.id')
@@ -64,6 +48,23 @@ class FestivalDetailSerializer(serializers.ModelSerializer):
         model = Festival
         fields = "__all__"
     
+
+class TicketDetailSerializer(serializers.ModelSerializer):
+    festivals = FestivalSerializer(many=True, read_only=True)
+    pledges = PledgeSerializer(many=True, read_only=True)
+    
+    def update(self, instance, validated_data):
+        instance.ticket_name = validated_data.get('ticket_name', instance.ticket_name)
+        instance.cost = validated_data.get('cost',instance.cost)
+        instance.features = validated_data.get('features', instance.features)
+        instance.festival = validated_data.get('festival', instance.festival)
+        instance.ticket_owner = validated_data.get('ticket_owner', instance.ticket_owner)
+        instance.save()
+        return instance
+    
+    class Meta:
+        model = Ticket
+        fields = "__all__"
 
 
 class PledgeDetailSerializer(serializers.ModelSerializer):
