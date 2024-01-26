@@ -166,3 +166,5 @@ cython_debug/
 # Txt docs
 working_notes.txt
 project_specs.txt
+
+.DS_Store
