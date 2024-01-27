@@ -7,17 +7,20 @@ from .serializers import CustomUserSerializer
 from .permissions import IsUserOrReadOnly
 
 class CustomUserList(APIView):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsUserOrReadOnly]
     def get(self, request):
         users = CustomUser.objects.all()
         serializer = CustomUserSerializer(users, many=True)
         return Response(serializer.data)
+class CreateUser(APIView):
+    permission_classes = [permissions.AllowAny]
     def post(self, request):
         serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class CustomUserDetail(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly,IsUserOrReadOnly]
     def get_object(self, pk):
