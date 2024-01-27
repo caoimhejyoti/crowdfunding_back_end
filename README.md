@@ -15,6 +15,8 @@ Back end repo for She Codes crowdfunding project.
 
 ---
 ## About
+**https://funderfest-back-end.fly.dev/**
+
 ### What is FunderFest?
 This project aim was to create a crowdfunding website. I decided to work with my events and festival background and create a platform for event creators. Funderfest Events allows event creators to sell tickets to their event with the oportunity to get donetions for the event as well. 
 
@@ -75,6 +77,9 @@ You do not require a token to create a user.
 Coming soon!
 
 ## Insomnia
+### GET AUTH token
+![Get auth token demo](assets/funderfest_auth_token_demo.png)
+
 ### GET All Festival objects
 ![Get all festival demo](assets/funderfest_get_festivals_demo.png)
 
