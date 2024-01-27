@@ -28,13 +28,21 @@ SO THAT I have the funding to progress with my event
 ### User Setup
 You do not require a token to create a user. 
 
-TODO: 
 #### User creation with Insomnia
-1. 
+1. Ensure the url is https://funderfest-back-end.fly.dev/users/create-user/
 
-TODO:
+2. The image below shows the JSON required for this method.
+ ![shows what users are required to enter when creating a user in INsomnia](assets/funderfest_insomnia_create_user_demo.png)
+
+
 #### User creation with Django Rest Interface
-1. 
+1. Go to https://funderfest-back-end.fly.dev/users/create-user/
+
+2. The image below shows what is required to enter in the request body:
+![shows what users are required to enter when creating a user in the Django REEST framework platform](assets/funderfest_rest_framework_create_user_demo2.png)
+
+3. The image below shows what the response is when a new  user is created.
+![shows a successful response when creating a user in the Django REEST framework platform](assets/funderfest_rest_framework_create_user_demo1.png)
 
 ## DB Schema
 ![Database schema for funderfest events](assets/funderfest_db_schema.png)
@@ -67,15 +75,18 @@ TODO:
 Coming soon!
 
 ## Insomnia
-TODO: Add images
+### GET All Festival objects
+![Get all festival demo](assets/funderfest_get_festivals_demo.png)
 
 ![Get all festival demo](assets/funderfest_get_festivals_demo.gif)
 
+### PUSH Festival object
+![Push a new festival and demonstrate its existance in the db](assets/funderfest_push_festivals_demo.png)
 ![Push a new festival and demonstrate its existance in the db](assets/funderfest_push_festivals_demo.gif)
 
 ## Future Developments
 - Date modified added to all models to be able to track any modifications made by users.
-- User creation permissions - 
+- Delete user API
 ---
 ## Resources
 https://www.tablesgenerator.com
