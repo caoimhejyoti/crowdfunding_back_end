@@ -58,6 +58,13 @@ class FestivalDetail(APIView):
             status=status.HTTP_400_BAD_REQUEST
         )
 
+    def delete(self, request, pk):
+        # try:
+        festival = self.get_object(pk)
+        festival.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+        # except Festival.DoesNotExist:
+        #     raise Http404
 
 # --------- Ticket Views --------- 
 class TicketList(APIView):
