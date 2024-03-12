@@ -37,6 +37,7 @@ class Ticket(models.Model):
 class Pledge(models.Model):
     comment = models.CharField(max_length=200)
     anonymous = models.BooleanField()
+    pledge_amount = models.IntegerField()
     ticket_option = models.ForeignKey(
         'Ticket',
         on_delete=models.CASCADE,
