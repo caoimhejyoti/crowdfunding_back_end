@@ -84,3 +84,4 @@ class PledgeDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pledge
         fields = "__all__"
+        extra_kwargs = {"ticket_option": {"required": False, "allow_null": True}}
