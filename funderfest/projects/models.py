@@ -41,6 +41,7 @@ class Pledge(models.Model):
     ticket_option = models.ForeignKey(
         'Ticket',
         on_delete=models.CASCADE,
+        null = True,
         related_name="pledges"
     )
     festival = models.ForeignKey(
