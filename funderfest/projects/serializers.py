@@ -3,13 +3,14 @@ from .models import Festival, Ticket, Pledge
 
 
 class PledgeSerializer(serializers.ModelSerializer):
+    supporter = serializers.ReadOnlyField(source='supporter.id')
     owner = serializers.ReadOnlyField(source='owner.id')
     def update(self, instance, validated_data):
         instance.comment = validated_data.get('comment', instance.comment)
         instance.anonymous = validated_data.get('anonymous',instance.anonymous)
         instance.ticket_option = validated_data.get('ticket_option', instance.ticket_option)
         instance.festival = validated_data.get('festival', instance.festival)
-        instance.supporter = validated_data.get('supporter', instance.supporter)
+        # instance.supporter = validated_data.get('supporter', instance.supporter)
         instance.save()
         return instance
     class Meta:
@@ -68,7 +69,8 @@ class TicketDetailSerializer(serializers.ModelSerializer):
 
 
 class PledgeDetailSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.id')
+    # owner = serializers.ReadOnlyField(source='owner.id')
+    supporter = serializers.ReadOnlyField(source='supporter.id')
     tickets = TicketSerializer(many=True, read_only=True)
     festivals = FestivalSerializer(many=True, read_only=True)
 
@@ -78,7 +80,7 @@ class PledgeDetailSerializer(serializers.ModelSerializer):
         instance.anonymous = validated_data.get('anonymous',instance.anonymous)
         instance.ticket_option = validated_data.get('ticket_option', instance.ticket_option)
         instance.festival = validated_data.get('festival', instance.festival)
-        instance.supporter = validated_data.get('supporter', instance.supporter)
+        # instance.supporter = validated_data.get('supporter', instance.supporter)
         instance.save()
         return instance
     class Meta:
